@@ -40,6 +40,7 @@ If the player runs out of lives before the word is guessed the player loses.
 
 - hangman_Template.py
 - milestone_2.py
+- milestone_3.py
 
 ## License
 
