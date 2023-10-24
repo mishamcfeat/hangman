@@ -6,16 +6,15 @@ class Hangman():
         self.num_lives = num_lives
         self.word_list = word_list
         self.list_of_guesses = []
-        
-        self.word_guessed = self.current_blanks()
-        self.num_letters = self.unique_letters()
+        self.word_guessed = ['_' for letter in self.word]
+        self.num_letters = list(set([letter for letter in self.word if letter not in self.list_of_guesses]))
         return None
     
     def check_guess(self, guess):
         self.guess = guess
         if self.guess.lower() in self.word:
             print(f"Good guess! {self.guess} is in the word {self.word}.")
-            print(self.current_blanks())
+            print([letter if letter in self.list_of_guesses else '_' for letter in self.word])
             return True
         else:
             self.num_lives -= 1
@@ -37,10 +36,10 @@ class Hangman():
                 break
                 
     def current_blanks(self):
-        return [letter if letter in self.list_of_guesses else '_' for letter in self.word]
+        return 
          
     def unique_letters(self):
-        return list(set([letter for letter in self.word if letter not in self.list_of_guesses]))
+        return 
 
     
     
