@@ -1,18 +1,19 @@
 from random import choice
 
+
 class Hangman:
     '''
     A Hangman Game that asks the user for a letter and checks if it is in the word.
     It starts with a default number of lives and a random word from the word_list.
 
-    
+
     Parameters:
     ----------
     word_list: list
         List of words to be used in the game
     num_lives: int
         Number of lives the player has
-    
+
     Attributes:
     ----------
     word: str
@@ -35,20 +36,37 @@ class Hangman:
     ask_for_input()
         Asks the user to guess a letter and handles the input validation.
     '''
-    
-    
+
     def __init__(self, word_list, num_lives=5):
+        '''
+        Initializes the Hangman game.
+
+        Parameters:
+        ----------
+        word_list: list
+            List of words to be used in the game.
+        num_lives: int, optional
+            Number of lives the player starts with. Default is 5.
+        '''
         self.word = choice(word_list)
         self.word_guessed = ['_' for _ in self.word]
         self.num_letters = len(set(self.word))
         self.num_lives = num_lives
         self.word_list = word_list
         self.list_of_guesses = []
-        
+
         print(f"The mistery word has {self.num_letters} characters")
         print(' '.join(self.word_guessed))
-    
+
     def check_guess(self, guess):
+        '''
+        Checks if the given letter is in the word and updates game state accordingly.
+
+        Parameters:
+        ----------
+        guess: str
+            The letter that the player guessed.
+        '''
         guess = guess.lower()
         if guess in self.word:
             print(f"Good guess! {guess} is in the word.")
@@ -60,8 +78,14 @@ class Hangman:
             self.num_lives -= 1
             print(f"Sorry, {guess} is not in the word.")
             print(f"You have {self.num_lives} lives left.")
-    
+
+        # Display the current state of the guessed word after each guess
+        print(' '.join(self.word_guessed))
+
     def ask_for_input(self):
+        '''
+        Asks the user for a letter guess and handles input validation.
+        '''
         while True:
             guess = input("Guess a letter: ")
             if not guess.isalpha() or len(guess) != 1:
@@ -73,7 +97,16 @@ class Hangman:
                 self.list_of_guesses.append(guess)
                 break
 
+
 def play_game(word_list):
+    '''
+    Starts and manages the Hangman game until it ends.
+
+    Parameters:
+    ----------
+    word_list: list
+        List of words to be used in the game.
+    '''
     game = Hangman(word_list, num_lives=5)
     while game.num_lives > 0 and game.num_letters > 0:
         game.ask_for_input()
@@ -81,5 +114,6 @@ def play_game(word_list):
         print("Congratulations! You won!")
     else:
         print(f"You lost! The word was {game.word}")
+
 
 play_game(['orange', 'lychee', 'grapes', 'kiwi', 'banana'])
