@@ -1,45 +1,43 @@
 from random import choice
 
-
 class Hangman:
     '''
     A Hangman Game that asks the user for a letter and checks if it is in the word.
     It starts with a default number of lives and a random word from the word_list.
 
-
     Parameters:
     ----------
     word_list: list
-        List of words to be used in the game
+        List of words to be used in the game.
     num_lives: int
-        Number of lives the player has
+        Number of lives the player has.
 
     Attributes:
     ----------
     word: str
-        The word to be guessed, picked randomly from the word_list (that contains 5 fruits)
+        The word to be guessed, picked randomly from the word_list.
     word_guessed: list
-        A list of the letters of the word, with '_' for each letter not yet guessed
-        For example, if the word is 'lychee', the word_guessed list would be ['_', '_', '_', '_', '_', '_']
-        If the player guesses 'e', the list would be ['_', '_', '_', '_', 'e', 'e']
+        A list of the letters of the word, with '_' for each letter not yet guessed.
     num_letters: int
-        The number of UNIQUE letters in the word that have not been guessed yet
+        The number of UNIQUE letters in the word that have not been guessed yet.
     num_lives: int
-        The number of lives the player has
-    list_letters: list
-        A list of the letters that have already been tried
+        The number of lives the player has.
+    list_of_guesses: list
+        A list of the letters that have already been tried.
 
     Methods:
     -------
-    check_letter(guess)
-        Checks if the letter is in the word and then updates the game state variables accordingly.
-    ask_for_input()
-        Asks the user to guess a letter and handles the input validation.
+    _check_guess(guess)
+        Checks if the letter is in the word and updates the game state.
+        Underscore is to indicate that it is a protected class.
+    _ask_for_input()
+        Asks the user for a letter and validates the input.
+        Underscore is to indicate that it is a protected class.
     '''
 
     def __init__(self, word_list, num_lives=5):
         '''
-        Initializes the Hangman game.
+        Initialises the Hangman game.
 
         Parameters:
         ----------
@@ -58,7 +56,7 @@ class Hangman:
         print(f"The mistery word has {self.num_letters} characters")
         print(' '.join(self.word_guessed))
 
-    def check_guess(self, guess):
+    def _check_guess(self, guess):
         '''
         Checks if the given letter is in the word and updates game state accordingly.
 
@@ -82,7 +80,7 @@ class Hangman:
         # Display the current state of the guessed word after each guess
         print(' '.join(self.word_guessed))
 
-    def ask_for_input(self):
+    def _ask_for_input(self):
         '''
         Asks the user for a letter guess and handles input validation.
         '''
@@ -93,7 +91,7 @@ class Hangman:
             elif guess in self.list_of_guesses:
                 print("You already tried that letter!")
             else:
-                self.check_guess(guess)
+                self._check_guess(guess)
                 self.list_of_guesses.append(guess)
                 break
 
@@ -109,11 +107,12 @@ def play_game(word_list):
     '''
     game = Hangman(word_list, num_lives=5)
     while game.num_lives > 0 and game.num_letters > 0:
-        game.ask_for_input()
+        game._ask_for_input()
     if game.num_letters == 0:
         print("Congratulations! You won!")
     else:
         print(f"You lost! The word was {game.word}")
 
-
-play_game(['orange', 'lychee', 'grapes', 'kiwi', 'banana'])
+if __name__ == '__main__':
+    word_list = ['orange', 'lychee', 'grapes', 'kiwi', 'banana']
+    play_game(word_list)
