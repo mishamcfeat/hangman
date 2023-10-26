@@ -33,7 +33,7 @@ If the player runs out of lives before the word is guessed the player loses.
 
 ## Usage
 
-1. **Run the python file:**
+1. **Run the python file: (milestone_5.py)**
 2. **Follow the prompts provided:**
 
 ## File Structure
